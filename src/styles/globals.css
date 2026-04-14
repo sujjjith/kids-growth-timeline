@@ -1,0 +1,143 @@
+@import "tailwindcss" source("..");
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #faf4ed;
+  --foreground: #3b2f2f;
+  --card: #ffffff;
+  --card-foreground: #3b2f2f;
+  --popover: #ffffff;
+  --popover-foreground: #3b2f2f;
+  --primary: #e8913a;
+  --primary-foreground: #ffffff;
+  --secondary: #f5ede3;
+  --secondary-foreground: #3b2f2f;
+  --muted: #f0e8de;
+  --muted-foreground: #6b5b4f;
+  --accent: #e8913a;
+  --accent-foreground: #ffffff;
+  --destructive: #dc3545;
+  --destructive-foreground: #dc3545;
+  --border: #3b2f2f1f;
+  --input: #3b2f2f1f;
+  --ring: #e8913a;
+  --chart-1: #4a7fb5;
+  --chart-2: #5b9a6f;
+  --chart-3: #d4793a;
+  --chart-4: #c4a43e;
+  --chart-5: #8b6bae;
+  --radius: 0.75rem;
+  --sidebar: #faf4ed;
+  --sidebar-foreground: #3b2f2f;
+  --sidebar-primary: #e8913a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f0e8de;
+  --sidebar-accent-foreground: #3b2f2f;
+  --sidebar-border: #3b2f2f1f;
+  --sidebar-ring: #e8913a;
+
+  /* Category colors */
+  --color-education: #4a7fb5;
+  --color-activities: #5b9a6f;
+  --color-competitions: #d4793a;
+  --color-camps: #c4a43e;
+  --color-trips: #8b6bae;
+  --color-growth: #d4697a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Category theme colors */
+  --color-education: var(--color-education);
+  --color-activities: var(--color-activities);
+  --color-competitions: var(--color-competitions);
+  --color-camps: var(--color-camps);
+  --color-trips: var(--color-trips);
+  --color-growth: var(--color-growth);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Source Sans 3", "Source Sans Pro", system-ui, sans-serif;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: "Fraunces", Georgia, serif;
+    color: #3b2f2f;
+  }
+  h1 {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
+/* Heartbeat pulse for today marker */
+@keyframes heartbeat {
+  0% {
+    box-shadow: 0 0 0 0 rgba(232, 145, 58, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 8px rgba(232, 145, 58, 0);
+  }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+/* Font variant for tabular numbers */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
