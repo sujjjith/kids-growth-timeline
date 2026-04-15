@@ -71,6 +71,7 @@ jobs:
             - name: Get latest image tag from ACR
               id: acr-tag
               run: |
+                  az acr login --name ${{ vars.ACR_NAME }}
                   TAG=$(az acr repository show-tags \
                     --name ${{ vars.ACR_NAME }} \
                     --repository kidchronicle-api \
