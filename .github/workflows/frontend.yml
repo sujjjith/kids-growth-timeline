@@ -10,9 +10,18 @@ on:
         branches: [main]
         paths:
             - "frontend/**"
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: "Target environment"
+                type: choice
+                options:
+                    - dev
+                    - prod
+                default: dev
 
 jobs:
-    build-and-deploy:
+    test:
         runs-on: ubuntu-latest
         defaults:
             run:
@@ -40,13 +49,33 @@ jobs:
               run: npm run test --if-present
               continue-on-error: false
 
+    build-and-deploy:
+        needs: test
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        runs-on: ubuntu-latest
+        environment: ${{ inputs.environment || 'dev' }}
+        defaults:
+            run:
+                working-directory: frontend
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: "22"
+                  cache: "npm"
+
+            - name: Install dependencies
+              run: npm ci
+              working-directory: .
+
             - name: Build
               run: npm run build
               env:
                   VITE_API_URL: ${{ vars.VITE_API_URL }}
 
             - name: Deploy to Azure Static Web Apps
-              if: github.ref == 'refs/heads/main' && github.event_name == 'push'
               uses: Azure/static-web-apps-deploy@v1
               with:
                   azure_static_web_apps_api_token: ${{ secrets.AZURE_SWA_TOKEN }}

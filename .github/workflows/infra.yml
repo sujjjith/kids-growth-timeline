@@ -10,14 +10,30 @@ on:
         branches: [main]
         paths:
             - "infra/**"
-
-env:
-    RESOURCE_GROUP: ${{ vars.RESOURCE_GROUP }}
-    LOCATION: ${{ vars.AZURE_LOCATION }}
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: "Target environment"
+                type: choice
+                options:
+                    - dev
+                    - prod
+                default: dev
 
 jobs:
     validate:
         runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Validate Bicep
+              run: az bicep build --file infra/main.bicep
+
+    what-if:
+        needs: validate
+        if: github.event_name == 'pull_request'
+        runs-on: ubuntu-latest
+        environment: dev
         steps:
             - uses: actions/checkout@v4
 
@@ -26,14 +42,10 @@ jobs:
               with:
                   creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-            - name: Validate Bicep
-              run: az bicep build --file infra/main.bicep
-
-            - name: What-if
-              if: github.event_name == 'pull_request'
+            - name: What-if (preview changes)
               run: |
                   az deployment group what-if \
-                    --resource-group ${{ env.RESOURCE_GROUP }} \
+                    --resource-group ${{ vars.RESOURCE_GROUP }} \
                     --template-file infra/main.bicep \
                     --parameters infra/parameters/dev.bicepparam \
                     --parameters dbAdminLogin=${{ secrets.DB_ADMIN_LOGIN }} \
@@ -41,12 +53,13 @@ jobs:
                                  googleClientId=${{ secrets.GOOGLE_CLIENT_ID }} \
                                  googleClientSecret=${{ secrets.GOOGLE_CLIENT_SECRET }} \
                                  jwtSecret=${{ secrets.JWT_SECRET }} \
-                                 allowedEmails=${{ vars.ALLOWED_EMAILS }}
+                                 allowedEmails="${{ vars.ALLOWED_EMAILS }}"
 
     deploy:
         needs: validate
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         runs-on: ubuntu-latest
+        environment: ${{ inputs.environment || 'dev' }}
         steps:
             - uses: actions/checkout@v4
 
@@ -58,12 +71,12 @@ jobs:
             - name: Deploy Bicep
               run: |
                   az deployment group create \
-                    --resource-group ${{ env.RESOURCE_GROUP }} \
+                    --resource-group ${{ vars.RESOURCE_GROUP }} \
                     --template-file infra/main.bicep \
-                    --parameters infra/parameters/dev.bicepparam \
+                    --parameters infra/parameters/${{ inputs.environment || 'dev' }}.bicepparam \
                     --parameters dbAdminLogin=${{ secrets.DB_ADMIN_LOGIN }} \
                                  dbAdminPassword=${{ secrets.DB_ADMIN_PASSWORD }} \
                                  googleClientId=${{ secrets.GOOGLE_CLIENT_ID }} \
                                  googleClientSecret=${{ secrets.GOOGLE_CLIENT_SECRET }} \
                                  jwtSecret=${{ secrets.JWT_SECRET }} \
-                                 allowedEmails=${{ vars.ALLOWED_EMAILS }}
+                                 allowedEmails="${{ vars.ALLOWED_EMAILS }}"
