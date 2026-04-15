@@ -68,17 +68,21 @@ jobs:
               with:
                   creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-            - name: Get latest image tag from ACR
+            - name: Get current container image tag
               id: acr-tag
               run: |
-                  az acr login --name ${{ vars.ACR_NAME }}
-                  TAG=$(az acr repository show-tags \
-                    --name ${{ vars.ACR_NAME }} \
-                    --repository kidchronicle-api \
-                    --orderby time_desc \
-                    --top 1 \
-                    -o tsv 2>/dev/null || echo "latest")
+                  IMAGE=$(az containerapp show \
+                    --name ${{ vars.CONTAINER_APP_NAME }} \
+                    --resource-group ${{ vars.RESOURCE_GROUP }} \
+                    --query "properties.template.containers[0].image" \
+                    -o tsv 2>/dev/null || echo "")
+                  echo "Current image: $IMAGE"
+                  TAG="latest"
+                  if [[ -n "$IMAGE" && "$IMAGE" != *"quickstart"* && "$IMAGE" == *":"* ]]; then
+                    TAG="${IMAGE##*:}"
+                  fi
                   echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+                  echo "Resolved tag: $TAG"
 
             - name: Deploy Bicep
               run: |
