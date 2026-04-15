@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.0...v1.0.1) (2026-04-15)
+
+
+### Bug Fixes
+
+* deploy PostgreSQL to centralus (restricted in eastus for free tier) ([f2977c4](https://github.com/sujjjith/kids-growth-timeline/commit/f2977c41bbe5ddbaf7bba3142f2dc30ca527c58b))
+
 # 1.0.0 (2026-04-15)
 
 
