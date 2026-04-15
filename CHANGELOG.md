@@ -1,3 +1,10 @@
+## [1.0.14](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.13...v1.0.14) (2026-04-15)
+
+
+### Bug Fixes
+
+* move TypeORM sync to main.ts to prevent startup crash ([49fdbda](https://github.com/sujjjith/kids-growth-timeline/commit/49fdbda998a60dd5c712f3c709cff78f1fb3c348))
+
 ## [1.0.13](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.12...v1.0.13) (2026-04-15)
 
 
