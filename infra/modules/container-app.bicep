@@ -79,7 +79,7 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
     configuration: {
       ingress: {
         external: true
-        targetPort: 3000
+        targetPort: useCustomImage ? 3000 : 80
         transport: 'auto'
       }
       secrets: [
