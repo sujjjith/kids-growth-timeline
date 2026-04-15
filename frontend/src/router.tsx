@@ -8,6 +8,7 @@ import { Login } from "./pages/Login";
 import { AuthCallback } from "./pages/AuthCallback";
 import { isAuthenticated } from "./api/auth";
 
+// eslint-disable-next-line react-refresh/only-export-components
 function RequireAuth({ children }: { children: React.ReactNode }) {
   if (!isAuthenticated()) {
     return <Navigate to="/login" replace />;

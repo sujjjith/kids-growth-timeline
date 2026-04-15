@@ -7,7 +7,7 @@
       "changelogFile": "CHANGELOG.md"
     }],
     ["@semantic-release/exec", {
-      "prepareCmd": "npm version ${nextRelease.version} --no-git-tag-version --workspaces --include-workspace-root"
+      "prepareCmd": "npm version ${nextRelease.version} --no-git-tag-version --allow-same-version --workspaces --include-workspace-root"
     }],
     ["@semantic-release/git", {
       "assets": ["CHANGELOG.md", "package.json", "frontend/package.json", "backend/package.json"],

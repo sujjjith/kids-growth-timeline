@@ -34,6 +34,9 @@ param jwtSecret string
 @description('Comma-separated allowed email addresses')
 param allowedEmails string
 
+@description('Azure region for Static Web App (limited availability)')
+param swaLocation string = 'eastus2'
+
 var resourcePrefix = '${appName}-${environment}'
 
 // Container Registry
@@ -70,7 +73,7 @@ module swa './modules/static-web-app.bicep' = {
   name: 'static-web-app'
   params: {
     name: '${resourcePrefix}-web'
-    location: location
+    location: swaLocation
   }
 }
 

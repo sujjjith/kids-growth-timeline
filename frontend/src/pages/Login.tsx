@@ -13,7 +13,7 @@ export function Login() {
             Kid Chronicle
           </h1>
           <p className="mt-2 text-sm text-[#6B5E57]">
-            Track your children's growth, milestones, and memories
+            Track your children&apos;s growth, milestones, and memories
           </p>
         </div>
         {error === "access_denied" && (
