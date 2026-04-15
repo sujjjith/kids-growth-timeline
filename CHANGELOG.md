@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.3...v1.0.4) (2026-04-15)
+
+
+### Bug Fixes
+
+* conditional ingress port for placeholder image, update port on deploy ([a2f1f80](https://github.com/sujjjith/kids-growth-timeline/commit/a2f1f800e0d5c5178ece29582712b2b0691dbe86))
+
 ## [1.0.3](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.2...v1.0.3) (2026-04-15)
 
 
