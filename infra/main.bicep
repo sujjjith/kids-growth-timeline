@@ -55,7 +55,7 @@ module acr './modules/container-registry.bicep' = {
 module postgres './modules/postgresql.bicep' = {
   name: 'postgresql'
   params: {
-    name: '${resourcePrefix}-pg'
+    name: '${resourcePrefix}-pgdb'
     location: pgLocation
     adminLogin: dbAdminLogin
     adminPassword: dbAdminPassword
