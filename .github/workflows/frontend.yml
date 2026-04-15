@@ -36,7 +36,7 @@ jobs:
                   cache: "npm"
 
             - name: Install dependencies
-              run: npm ci
+              run: npm ci --registry https://registry.npmjs.org/
               working-directory: .
 
             - name: Lint
@@ -67,7 +67,7 @@ jobs:
                   cache: "npm"
 
             - name: Install dependencies
-              run: npm ci
+              run: npm ci --registry https://registry.npmjs.org/
               working-directory: .
 
             - name: Build
