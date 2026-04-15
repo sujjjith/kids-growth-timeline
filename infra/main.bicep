@@ -20,6 +20,20 @@ param dbAdminPassword string
 @description('Container image tag')
 param containerImageTag string = 'latest'
 
+@description('Google OAuth client ID')
+param googleClientId string
+
+@description('Google OAuth client secret')
+@secure()
+param googleClientSecret string
+
+@description('JWT secret for token signing')
+@secure()
+param jwtSecret string
+
+@description('Comma-separated allowed email addresses')
+param allowedEmails string
+
 var resourcePrefix = '${appName}-${environment}'
 
 // Container Registry
@@ -51,6 +65,15 @@ module storage './modules/storage.bicep' = {
   }
 }
 
+// Static Web App (frontend)
+module swa './modules/static-web-app.bicep' = {
+  name: 'static-web-app'
+  params: {
+    name: '${resourcePrefix}-web'
+    location: location
+  }
+}
+
 // Container App Environment + App
 module containerApp './modules/container-app.bicep' = {
   name: 'container-app'
@@ -58,18 +81,16 @@ module containerApp './modules/container-app.bicep' = {
     name: '${resourcePrefix}-api'
     location: location
     containerRegistryLoginServer: acr.outputs.loginServer
+    acrAdminUsername: replace('${resourcePrefix}acr', '-', '')
+    acrAdminPassword: listCredentials(resourceId('Microsoft.ContainerRegistry/registries', replace('${resourcePrefix}acr', '-', '')), '2023-07-01').passwords[0].value
     containerImageTag: containerImageTag
     databaseUrl: postgres.outputs.connectionString
     storageConnectionString: storage.outputs.connectionString
-  }
-}
-
-// Static Web App (frontend)
-module swa './modules/static-web-app.bicep' = {
-  name: 'static-web-app'
-  params: {
-    name: '${resourcePrefix}-web'
-    location: location
+    googleClientId: googleClientId
+    googleClientSecret: googleClientSecret
+    jwtSecret: jwtSecret
+    allowedEmails: allowedEmails
+    frontendUrl: 'https://${swa.outputs.defaultHostname}'
   }
 }
 

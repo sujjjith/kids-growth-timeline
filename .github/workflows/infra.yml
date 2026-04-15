@@ -37,7 +37,11 @@ jobs:
                     --template-file infra/main.bicep \
                     --parameters infra/parameters/dev.bicepparam \
                     --parameters dbAdminLogin=${{ secrets.DB_ADMIN_LOGIN }} \
-                                 dbAdminPassword=${{ secrets.DB_ADMIN_PASSWORD }}
+                                 dbAdminPassword=${{ secrets.DB_ADMIN_PASSWORD }} \
+                                 googleClientId=${{ secrets.GOOGLE_CLIENT_ID }} \
+                                 googleClientSecret=${{ secrets.GOOGLE_CLIENT_SECRET }} \
+                                 jwtSecret=${{ secrets.JWT_SECRET }} \
+                                 allowedEmails=${{ vars.ALLOWED_EMAILS }}
 
     deploy:
         needs: validate
@@ -58,4 +62,8 @@ jobs:
                     --template-file infra/main.bicep \
                     --parameters infra/parameters/dev.bicepparam \
                     --parameters dbAdminLogin=${{ secrets.DB_ADMIN_LOGIN }} \
-                                 dbAdminPassword=${{ secrets.DB_ADMIN_PASSWORD }}
+                                 dbAdminPassword=${{ secrets.DB_ADMIN_PASSWORD }} \
+                                 googleClientId=${{ secrets.GOOGLE_CLIENT_ID }} \
+                                 googleClientSecret=${{ secrets.GOOGLE_CLIENT_SECRET }} \
+                                 jwtSecret=${{ secrets.JWT_SECRET }} \
+                                 allowedEmails=${{ vars.ALLOWED_EMAILS }}

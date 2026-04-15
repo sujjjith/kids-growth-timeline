@@ -398,6 +398,46 @@ The **Living Timeline Spine** — a continuous vertical line with category-coded
 
 ---
 
+## CI/CD & Deployment
+
+### GitHub Actions Workflows
+
+| Workflow | Trigger | Purpose |
+|----------|---------|---------|
+| `backend.yml` | Push/PR to `main` (backend changes) | Lint, type-check, test → Build Docker → Push to ACR → Deploy Container App |
+| `frontend.yml` | Push/PR to `main` (frontend changes) | Lint, type-check, test → Build → Deploy to Azure Static Web Apps |
+| `infra.yml` | Push/PR to `main` (infra changes) | Validate Bicep → What-if (PR) → Deploy (push) |
+| `release.yml` | Push to `main` | Semantic-release: version bump, changelog, GitHub release |
+
+### Required GitHub Secrets
+
+Set these in **Settings → Secrets and variables → Actions → Secrets**:
+
+| Secret | Description |
+|--------|-------------|
+| `AZURE_CREDENTIALS` | Service principal JSON (`az ad sp create-for-rbac --sdk-auth`) |
+| `DB_ADMIN_LOGIN` | PostgreSQL admin username |
+| `DB_ADMIN_PASSWORD` | PostgreSQL admin password (strong, 16+ chars) |
+| `GOOGLE_CLIENT_ID` | Google OAuth 2.0 Client ID |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth 2.0 Client Secret |
+| `JWT_SECRET` | Random string for JWT signing (e.g. `openssl rand -hex 32`) |
+| `AZURE_SWA_TOKEN` | Static Web Apps deployment token |
+
+### Required GitHub Variables
+
+Set these in **Settings → Secrets and variables → Actions → Variables**:
+
+| Variable | Example | Description |
+|----------|---------|-------------|
+| `RESOURCE_GROUP` | `kidchronicle-dev-rg` | Azure resource group name |
+| `AZURE_LOCATION` | `eastus` | Azure region |
+| `ACR_NAME` | `kidchronicledevacr` | Azure Container Registry name |
+| `CONTAINER_APP_NAME` | `kidchronicle-dev-api` | Container App name |
+| `ALLOWED_EMAILS` | `user@gmail.com,user2@gmail.com` | Comma-separated email allowlist |
+| `VITE_API_URL` | `https://kidchronicle-dev-api.azurecontainerapps.io` | Backend URL for frontend build |
+
+---
+
 ## License
 
 Private — not licensed for redistribution.
