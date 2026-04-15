@@ -1,0 +1,82 @@
+name: Infrastructure
+
+on:
+    push:
+        branches: [main]
+        paths:
+            - "infra/**"
+            - ".github/workflows/infra.yml"
+    pull_request:
+        branches: [main]
+        paths:
+            - "infra/**"
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: "Target environment"
+                type: choice
+                options:
+                    - dev
+                    - prod
+                default: dev
+
+jobs:
+    validate:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Validate Bicep
+              run: az bicep build --file infra/main.bicep
+
+    what-if:
+        needs: validate
+        if: github.event_name == 'pull_request'
+        runs-on: ubuntu-latest
+        environment: dev
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Login to Azure
+              uses: azure/login@v2
+              with:
+                  creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+            - name: What-if (preview changes)
+              run: |
+                  az deployment group what-if \
+                    --resource-group ${{ vars.RESOURCE_GROUP }} \
+                    --template-file infra/main.bicep \
+                    --parameters infra/parameters/dev.bicepparam \
+                    --parameters dbAdminLogin=${{ secrets.DB_ADMIN_LOGIN }} \
+                                 dbAdminPassword=${{ secrets.DB_ADMIN_PASSWORD }} \
+                                 googleClientId=${{ secrets.GOOGLE_CLIENT_ID }} \
+                                 googleClientSecret=${{ secrets.GOOGLE_CLIENT_SECRET }} \
+                                 jwtSecret=${{ secrets.JWT_SECRET }} \
+                                 allowedEmails="${{ vars.ALLOWED_EMAILS }}"
+
+    deploy:
+        needs: validate
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        runs-on: ubuntu-latest
+        environment: ${{ inputs.environment || 'dev' }}
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Login to Azure
+              uses: azure/login@v2
+              with:
+                  creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+            - name: Deploy Bicep
+              run: |
+                  az deployment group create \
+                    --resource-group ${{ vars.RESOURCE_GROUP }} \
+                    --template-file infra/main.bicep \
+                    --parameters infra/parameters/${{ inputs.environment || 'dev' }}.bicepparam \
+                    --parameters dbAdminLogin=${{ secrets.DB_ADMIN_LOGIN }} \
+                                 dbAdminPassword=${{ secrets.DB_ADMIN_PASSWORD }} \
+                                 googleClientId=${{ secrets.GOOGLE_CLIENT_ID }} \
+                                 googleClientSecret=${{ secrets.GOOGLE_CLIENT_SECRET }} \
+                                 jwtSecret=${{ secrets.JWT_SECRET }} \
+                                 allowedEmails="${{ vars.ALLOWED_EMAILS }}"
