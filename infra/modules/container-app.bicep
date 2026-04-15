@@ -78,7 +78,7 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
     configuration: {
       ingress: {
         external: true
-        targetPort: useCustomImage ? 3000 : 80
+        targetPort: 3000
         transport: 'auto'
       }
       secrets: [
@@ -88,13 +88,13 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
         { name: 'jwt-secret', value: jwtSecret }
         { name: 'acr-password', value: acrAdminPassword }
       ]
-      registries: useCustomImage ? [
+      registries: [
         {
           server: containerRegistryLoginServer
           username: acrAdminUsername
           passwordSecretRef: 'acr-password'
         }
-      ] : []
+      ]
     }
     template: {
       containers: [
