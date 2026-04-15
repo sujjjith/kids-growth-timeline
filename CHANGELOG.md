@@ -1,3 +1,10 @@
+## [1.0.13](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.12...v1.0.13) (2026-04-15)
+
+
+### Bug Fixes
+
+* remove useCustomImage references after quickstart removal ([5cf878f](https://github.com/sujjjith/kids-growth-timeline/commit/5cf878f0933ae13fa31cdb6b45c638c15be57790))
+
 ## [1.0.12](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.11...v1.0.12) (2026-04-15)
 
 
