@@ -37,6 +37,9 @@ param allowedEmails string
 @description('Azure region for Static Web App (limited availability)')
 param swaLocation string = 'eastus2'
 
+@description('Azure region for PostgreSQL Flexible Server (restricted in some regions)')
+param pgLocation string = 'centralus'
+
 var resourcePrefix = '${appName}-${environment}'
 
 // Container Registry
@@ -53,7 +56,7 @@ module postgres './modules/postgresql.bicep' = {
   name: 'postgresql'
   params: {
     name: '${resourcePrefix}-pg'
-    location: location
+    location: pgLocation
     adminLogin: dbAdminLogin
     adminPassword: dbAdminPassword
   }
