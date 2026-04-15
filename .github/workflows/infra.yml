@@ -68,6 +68,17 @@ jobs:
               with:
                   creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+            - name: Get latest image tag from ACR
+              id: acr-tag
+              run: |
+                  TAG=$(az acr repository show-tags \
+                    --name ${{ vars.ACR_NAME }} \
+                    --repository kidchronicle-api \
+                    --orderby time_desc \
+                    --top 1 \
+                    -o tsv 2>/dev/null || echo "latest")
+                  echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
             - name: Deploy Bicep
               run: |
                   az deployment group create \
@@ -79,4 +90,5 @@ jobs:
                                  googleClientId=${{ secrets.GOOGLE_CLIENT_ID }} \
                                  googleClientSecret=${{ secrets.GOOGLE_CLIENT_SECRET }} \
                                  jwtSecret=${{ secrets.JWT_SECRET }} \
-                                 allowedEmails="${{ vars.ALLOWED_EMAILS }}"
+                                 allowedEmails="${{ vars.ALLOWED_EMAILS }}" \
+                                 containerImageTag=${{ steps.acr-tag.outputs.tag }}
