@@ -1,3 +1,10 @@
+## [1.0.12](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.11...v1.0.12) (2026-04-15)
+
+
+### Bug Fixes
+
+* always use ACR image in container app, remove quickstart fallback ([f8d82b4](https://github.com/sujjjith/kids-growth-timeline/commit/f8d82b4aab4091865675e475632f66672bcaf92b))
+
 ## [1.0.11](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.10...v1.0.11) (2026-04-15)
 
 
