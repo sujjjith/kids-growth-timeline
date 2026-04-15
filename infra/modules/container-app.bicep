@@ -68,8 +68,7 @@ resource containerAppEnv 'Microsoft.App/managedEnvironments@2024-03-01' = {
   }
 }
 
-var useCustomImage = containerImageTag != 'latest'
-var containerImage = useCustomImage ? '${containerRegistryLoginServer}/kidchronicle-api:${containerImageTag}' : 'mcr.microsoft.com/k8se/quickstart:latest'
+var containerImage = '${containerRegistryLoginServer}/kidchronicle-api:${containerImageTag}'
 
 resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
   name: name
