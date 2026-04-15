@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.1...v1.0.2) (2026-04-15)
+
+
+### Bug Fixes
+
+* rename PostgreSQL server to avoid ghost resource conflict ([b39c275](https://github.com/sujjjith/kids-growth-timeline/commit/b39c27582e85d7a5d5324e16c5b57a0a5a05b949))
+
 ## [1.0.1](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.0...v1.0.1) (2026-04-15)
 
 
