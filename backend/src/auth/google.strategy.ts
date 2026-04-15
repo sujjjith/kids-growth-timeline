@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, VerifyCallback } from 'passport-google-oauth20';
@@ -6,6 +6,8 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
+  private readonly logger = new Logger(GoogleStrategy.name);
+
   constructor(
     private readonly authService: AuthService,
     config: ConfigService,
@@ -32,8 +34,11 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         avatarUrl: profile.photos?.[0]?.value,
       });
       done(null, user);
-    } catch {
-      // Email not in allowlist — pass false to signal auth failure
+    } catch (error) {
+      this.logger.error(
+        'Google auth validation failed',
+        error instanceof Error ? error.stack : String(error),
+      );
       done(null, false);
     }
   }

@@ -21,7 +21,7 @@ import { GrowthModule } from './growth/growth.module';
         type: 'postgres',
         url: config.get<string>('DATABASE_URL'),
         autoLoadEntities: true,
-        synchronize: config.get<string>('NODE_ENV') !== 'production',
+        synchronize: config.get<string>('TYPEORM_SYNCHRONIZE') === 'true',
         ssl:
           config.get<string>('NODE_ENV') === 'production'
             ? { rejectUnauthorized: false }

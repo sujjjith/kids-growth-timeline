@@ -118,6 +118,7 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
             { name: 'JWT_EXPIRY', value: '7d' }
             { name: 'ALLOWED_EMAILS', value: allowedEmails }
             { name: 'FRONTEND_URL', value: frontendUrl }
+            { name: 'TYPEORM_SYNCHRONIZE', value: 'true' }
           ]
         }
       ]
