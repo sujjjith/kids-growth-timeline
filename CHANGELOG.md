@@ -1,3 +1,10 @@
+## [1.0.11](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.10...v1.0.11) (2026-04-15)
+
+
+### Bug Fixes
+
+* use container app image lookup instead of ACR for tag ([6717500](https://github.com/sujjjith/kids-growth-timeline/commit/6717500506149b69ba3bb14af0fc647111cc3228))
+
 ## [1.0.10](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.9...v1.0.10) (2026-04-15)
 
 
