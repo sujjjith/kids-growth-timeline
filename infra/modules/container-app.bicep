@@ -15,7 +15,7 @@ param acrAdminUsername string
 @secure()
 param acrAdminPassword string
 
-@description('Container image tag')
+@description('Container image tag (empty string uses quickstart placeholder)')
 param containerImageTag string
 
 @description('Database connection URL')
@@ -68,6 +68,9 @@ resource containerAppEnv 'Microsoft.App/managedEnvironments@2024-03-01' = {
   }
 }
 
+var useCustomImage = containerImageTag != 'latest'
+var containerImage = useCustomImage ? '${containerRegistryLoginServer}/kidchronicle-api:${containerImageTag}' : 'mcr.microsoft.com/k8se/quickstart:latest'
+
 resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
   name: name
   location: location
@@ -86,19 +89,19 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
         { name: 'jwt-secret', value: jwtSecret }
         { name: 'acr-password', value: acrAdminPassword }
       ]
-      registries: [
+      registries: useCustomImage ? [
         {
           server: containerRegistryLoginServer
           username: acrAdminUsername
           passwordSecretRef: 'acr-password'
         }
-      ]
+      ] : []
     }
     template: {
       containers: [
         {
           name: 'api'
-          image: '${containerRegistryLoginServer}/kidchronicle-api:${containerImageTag}'
+          image: containerImage
           resources: {
             cpu: json('0.25')
             memory: '0.5Gi'
