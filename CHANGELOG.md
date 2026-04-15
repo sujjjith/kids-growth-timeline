@@ -1,3 +1,10 @@
+## [1.0.9](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.8...v1.0.9) (2026-04-15)
+
+
+### Bug Fixes
+
+* enable TypeORM schema sync and log auth errors ([c78288a](https://github.com/sujjjith/kids-growth-timeline/commit/c78288a0939789bf0566e20f746dc31dea5676bd))
+
 ## [1.0.8](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.7...v1.0.8) (2026-04-15)
 
 
