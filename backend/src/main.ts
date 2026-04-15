@@ -1,9 +1,22 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { DataSource } from 'typeorm';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Sync DB schema after app is created so failures don't crash the server.
+  // Controlled by TYPEORM_SYNCHRONIZE env var (set true in dev and prod init).
+  if (process.env.TYPEORM_SYNCHRONIZE === 'true') {
+    try {
+      const dataSource = app.get(DataSource);
+      await dataSource.synchronize();
+      console.log('[TypeORM] Schema synchronized');
+    } catch (err) {
+      console.error('[TypeORM] Schema sync failed (app will continue):', err);
+    }
+  }
 
   app.setGlobalPrefix('api');
 
