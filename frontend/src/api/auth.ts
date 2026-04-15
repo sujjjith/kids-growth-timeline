@@ -18,5 +18,5 @@ export function isAuthenticated(): boolean {
 
 export function getAuthUrl(): string {
   const baseUrl = import.meta.env.VITE_API_URL || '';
-  return `${baseUrl}/api/auth/google`;
+  return `${baseUrl}/auth/google`;
 }
