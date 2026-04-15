@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.6...v1.0.7) (2026-04-15)
+
+
+### Bug Fixes
+
+* remove duplicate /api prefix in Google auth URL ([b455dd3](https://github.com/sujjjith/kids-growth-timeline/commit/b455dd38c9c31a96780928967f4b496e152f3081))
+
 ## [1.0.6](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.5...v1.0.6) (2026-04-15)
 
 
