@@ -113,7 +113,7 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
             { name: 'AZURE_STORAGE_CONNECTION_STRING', secretRef: 'storage-connection' }
             { name: 'GOOGLE_CLIENT_ID', value: googleClientId }
             { name: 'GOOGLE_CLIENT_SECRET', secretRef: 'google-client-secret' }
-            { name: 'GOOGLE_CALLBACK_URL', value: '${frontendUrl}/auth/callback' }
+            { name: 'GOOGLE_CALLBACK_URL', value: 'https://${name}.${containerAppEnv.properties.defaultDomain}/api/auth/google/callback' }
             { name: 'JWT_SECRET', secretRef: 'jwt-secret' }
             { name: 'JWT_EXPIRY', value: '7d' }
             { name: 'ALLOWED_EMAILS', value: allowedEmails }
