@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.2...v1.0.3) (2026-04-15)
+
+
+### Bug Fixes
+
+* use placeholder image for initial Container App deploy ([59cff5d](https://github.com/sujjjith/kids-growth-timeline/commit/59cff5d18015b54cd912c7c554ee2ef5775e2506))
+
 ## [1.0.2](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.1...v1.0.2) (2026-04-15)
 
 
