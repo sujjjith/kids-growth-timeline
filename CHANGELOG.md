@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.4...v1.0.5) (2026-04-15)
+
+
+### Bug Fixes
+
+* correct GOOGLE_CALLBACK_URL to use backend API URL ([e14017f](https://github.com/sujjjith/kids-growth-timeline/commit/e14017fae9f9cf927230a81d99cf07c5a75d05bc))
+
 ## [1.0.4](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.3...v1.0.4) (2026-04-15)
 
 
