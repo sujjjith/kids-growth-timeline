@@ -1,3 +1,10 @@
+## [1.0.10](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.9...v1.0.10) (2026-04-15)
+
+
+### Bug Fixes
+
+* add ACR login before tag lookup in infra workflow ([e6e3213](https://github.com/sujjjith/kids-growth-timeline/commit/e6e3213ace1e52bf6e4e82a136b9174ffdbef02f))
+
 ## [1.0.9](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.8...v1.0.9) (2026-04-15)
 
 
