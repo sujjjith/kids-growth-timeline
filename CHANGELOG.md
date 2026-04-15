@@ -1,3 +1,10 @@
+## [1.0.8](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.7...v1.0.8) (2026-04-15)
+
+
+### Bug Fixes
+
+* preserve backend image tag during infra deploys ([2ce7c35](https://github.com/sujjjith/kids-growth-timeline/commit/2ce7c35c87195ca57b4601ffeeb146f2a06b1253))
+
 ## [1.0.7](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.6...v1.0.7) (2026-04-15)
 
 
