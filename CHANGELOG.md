@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.5...v1.0.6) (2026-04-15)
+
+
+### Bug Fixes
+
+* correct SWA deploy to serve built output ([86eab56](https://github.com/sujjjith/kids-growth-timeline/commit/86eab56ca502fd5f1872bef7e7f32b33701492a3))
+
 ## [1.0.5](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.4...v1.0.5) (2026-04-15)
 
 
