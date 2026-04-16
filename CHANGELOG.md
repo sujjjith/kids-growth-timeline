@@ -1,3 +1,10 @@
+## [1.0.16](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.15...v1.0.16) (2026-04-16)
+
+
+### Bug Fixes
+
+* disable passport session state for stateless JWT auth ([001be7b](https://github.com/sujjjith/kids-growth-timeline/commit/001be7b98485844e3d103ce7a01c860e36f00a23))
+
 ## [1.0.15](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.14...v1.0.15) (2026-04-16)
 
 
