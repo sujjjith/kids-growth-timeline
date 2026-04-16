@@ -4,7 +4,13 @@ import { DataSource } from 'typeorm';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  let app: any;
+  try {
+    app = await NestFactory.create(AppModule);
+  } catch (err) {
+    console.error('[Bootstrap] Failed to create NestJS app:', err);
+    process.exit(1);
+  }
 
   // Sync DB schema after app is created so failures don't crash the server.
   // Controlled by TYPEORM_SYNCHRONIZE env var (set true in dev and prod init).

@@ -53,4 +53,4 @@ resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2023-12-01-preview'
 }
 
 output fqdn string = postgres.properties.fullyQualifiedDomainName
-output connectionString string = 'postgresql://${adminLogin}:${adminPassword}@${postgres.properties.fullyQualifiedDomainName}:5432/kidchronicle?sslmode=require'
+output connectionString string = 'postgresql://${adminLogin}:${adminPassword}@${postgres.properties.fullyQualifiedDomainName}:5432/kidchronicle'
