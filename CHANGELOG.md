@@ -1,3 +1,10 @@
+## [1.0.15](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.14...v1.0.15) (2026-04-16)
+
+
+### Bug Fixes
+
+* remove sslmode=require from DB URL to resolve container crash ([dc968fd](https://github.com/sujjjith/kids-growth-timeline/commit/dc968fd23f1ba22a9608d107cdff5ae65098dadd))
+
 ## [1.0.14](https://github.com/sujjjith/kids-growth-timeline/compare/v1.0.13...v1.0.14) (2026-04-15)
 
 
